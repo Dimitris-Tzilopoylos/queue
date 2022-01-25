@@ -1,9 +1,12 @@
-const express = require('express')
-const app = express()
+require('dotenv').config()
+const PORT = process.env.PORT
+const queueConfig = require('./config/queue')
+const http = require('http')
+const app = require('./app')
+const server = http.createServer(app)
 const initRoutes = require('./routes')
-const queue = require('./queue/Queue')
+const IO = require('./sockets')(server)
+app.set('io',IO)
 app.use(require('body-parser').json({limit:'10mb'}))
 initRoutes(app)
-
-app.listen(8000,() => console.log('8000'))
- 
+server.listen(PORT,() => console.log(`http://localhost:${PORT}`)) 

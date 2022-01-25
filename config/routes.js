@@ -1,3 +1,4 @@
 module.exports = {
-    main:'/api'
+    main:'/api',
+    auth:'/api/auth'
 }
